@@ -58,7 +58,7 @@ pipeline {
                                 }
                             }
                         }
-                        EOF
+EOF
                     '''
                 }
             }
