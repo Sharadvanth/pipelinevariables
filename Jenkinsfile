@@ -5,29 +5,40 @@ pipeline {
         choice(name: 'ENVIRONMENT',
                choices: ['DEVELOPMENT','STAGING', 'PRODUCTION'] ,
                description: 'Choose the environment for this deployment')
+        password(name: 'APIKEY',
+                 defaultValue: '123ABC',
+                 description: 'Passes a secret value into the pipeline')
+        text(name:'CHANGELOG' ,
+             defaultValue: ' This is the change log'
+             description: ' Freeform  text can be added to a report ')
+                 
     }
 
     stages { 
-        stage('Build'){
+        stage('Test'){
             steps{
-                echo ' Build the Enviornment'
+                echo " Tests the Enviornment "
             }
         }
-        stage('Deploy to Non-production Environments') {
-            when{
-                expression { params.ENVIRONMENT != 'PRODUCTION' }
-            }
-            steps{
-                echo " Deploying to ${params.ENVIRONMENT} "
-            }
-        }
-        stage('Deploy to Production Environment'){
+        stage('Deploy') {
             when{
                 expression { params.ENVIRONMENT == 'PRODUCTION' }
             }
             steps{
                 input message: ' Confirm Deployment to Production ........' , ok: 'Deploy'
                 echo " Deploying to ${params.ENVIRONMENT} "
+            }
+        }
+        stage('Report'){
+            steps{
+                echo " This is a Report Form "
+                sh "printf \"This is the change log ${params.CHANGELOG}\" > ${params.ENVIRONMENT}.txt"
+                archiveArtifacts allowEmptyArchive: true, 
+                    artifacts: '*.txt', 
+                    fingerprint: true, 
+                    followSymlinks: false, 
+                    onlyIfSuccessful: true
+                
             }
         }
 
