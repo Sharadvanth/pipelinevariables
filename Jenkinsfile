@@ -14,11 +14,11 @@ pipeline{
         booleanParam(name: 'RUN_TESTS',
                      defaultValue: true,
                      description: ' Toggle the Box to False')
-        choices(name: 'AWS_REGION',
+        choice(name: 'AWS_REGION',
                 choices: ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2'],
                 description: ' Select one region to proceed further')
         password(name: 'PASSWORD',
-                 defaultvalue: ' Password123',
+                 defaultValue: ' Password123',
                  description: ' Enter the password that contains atleast 1 spl chr, 1 number, 1 alpha')
     
     }
