@@ -18,6 +18,7 @@ pipeline {
         stage('Test'){
             steps{
                 echo " Tests the ${params.ENVIRONMENT} environment "
+                echo " Can I Tell you a Secret ${params.APIKEY} "
             }
         }
         stage('Deploy') {
