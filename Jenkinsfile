@@ -1,6 +1,9 @@
 pipeline{
     agent any
-    environment{
+    
+            stage('Report'){
+                steps{
+                   sh 'echo "environment{
         MAX_SIZE = 10
         MIN_SIZE = 1
     }
@@ -51,13 +54,7 @@ pipeline{
                     echo " Enter a Secure Password ${params.PASSWORD}"
                 }
                 
-            
-            
-            
-            }
-            stage('Report'){
-                steps{
-                   sh 'echo "This is report" > report.txt' 
+            " > report.txt' 
                    archiveArtifacts allowEmptyArchive: true, 
                    artifacts: '**/report.txt', 
                    fingerprint: true, 
