@@ -1,4 +1,5 @@
-[![Build Status](http://localhost:8080/sharadvanth/buildStatus/icon?job=pieplinevariables)](http://localhost:8080/job/pieplinevariables/)
+
+![Build Status](http://your-jenkins-server/job/pieplinevariables/badge/icon)
 
 
 
