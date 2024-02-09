@@ -8,7 +8,7 @@ pipeline{
                 steps{
                    sh ''' 
                     echo "This is Report File " 
-                    cat <<EOF>> > report.txt 
+                    cat <<EOF>>  report.txt 
 
                     environment{
         MAX_SIZE = 10
