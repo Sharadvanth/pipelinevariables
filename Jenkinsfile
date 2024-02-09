@@ -31,4 +31,7 @@ pipeline {
                 echo 'Deploying to ${params.ENVIRONMENT} '
             }
         }
+
+    }
+}    
         
