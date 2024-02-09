@@ -1,72 +1,34 @@
-pipeline {
+pipeline { 
     agent any
 
-    stages {
-        stage('Append to File') {
-            steps {
-                script {
-                    def fileContent = """
-                        This is Report File 
-                        environment{
-                            MAX_SIZE = 10
-                            MIN_SIZE = 1
-                        }
-                        parameters{
-                            string(name: 'MOTHER',
-                                   defaultValue: 'MoM',
-                                   description: "Please Enter Your Mother's Name")
-                            text(name: 'PHRASE',
-                                 defaultValue: 'Mom is the only beautiful thing in the world. She cares more than anyone in the world ',
-                                 description: ' Enter Your Favorite sentences about your mom')
-                            booleanParam(name: 'RUN_TESTS',
-                                         defaultValue: true,
-                                         description: ' Toggle the Box to False')
-                            choice(name: 'AWS_REGION',
-                                    choices: ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2'],
-                                    description: ' Select one region to proceed further')
-                            password(name: 'PASSWORD',
-                                     defaultValue: ' Password123',
-                                     description: ' Enter the password that contains at least 1 spl chr, 1 number, 1 alpha')
-                        }
-                        
-                        stages{
-                            stage('Scale_Default'){
-                                steps{
-                                    echo " MAX_SIZE = \${env.MAX_SIZE}"
-                                    echo " MIN_SIZE = \${env.MIN_SIZE}"
-                                }
-                            }
-                            stage('Scale by 10x'){
-                                environment{
-                                    MAX_SIZE = 100
-                                    MIN_SIZE = 10
-                                }
-                                steps{
-                                     echo " MAX_SIZE = \${env.MAX_SIZE}"
-                                     echo " MIN_SIZE = \${env.MIN_SIZE}"
-                                }
-                            }
-                            stage('Parameters'){
-                                steps{
-                                    echo " My Mother name is \${params.MOTHER} "
-                                    echo " My Favorite Phrase is \${params.PHRASE}"
-                                    echo " If u dare to do keep the option \${params.RUN_TESTS}"
-                                    echo " Select an AWS region u want to deploy to \${params.AWS_REGION}"
-                                    echo " Enter a Secure Password \${params.PASSWORD}"
-                                }
-                            }
-                        }
-                    """
-                    
-                    writeFile file: 'report.txt', text: fileContent.trim()
+    parameters{
+        choice(name: 'ENVIRONMENT',
+               choices: ['DEVELOPMENT','STAGING', 'PRODUCTION'] 
+               description: 'Choose the environment for this deployment')
+    }
 
-                    archiveArtifacts allowEmptyArchive: true, 
-                        artifacts: '**/report.txt , Jenkinsfile', 
-                        fingerprint: true, 
-                        followSymlinks: false, 
-                        onlyIfSuccessful: true
-                }
+    stages { 
+        stage("Build"){
+            steps{
+                echo ' Build the Enviornment'
             }
         }
-    }
-}
+        stage('Deploy to Non-production Environments')
+        {
+            when{
+                expression { $params.ENVIRONMENT != 'PRODUCTION' }
+            }
+            steps{
+                echo 'Deploying to ${params.ENVIRONMENT}'
+            }
+        }
+        stage('Deploy to Production Environment'){
+            when{
+                expression { $params.ENVIRONMENT == 'PRODUCTION' }
+            }
+            steps{
+                input message: ' Confirm Deployment to Production ........' , ok: 'Deploy'
+                echo 'Deploying to ${params.ENVIRONMENT} '
+            }
+        }
+        
