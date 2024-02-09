@@ -1,6 +1,7 @@
 pipeline{
     agent any
-    
+            Stages{
+                
             stage('Append to file'){
                 steps{
                    sh ''' 
