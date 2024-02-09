@@ -6,7 +6,7 @@ pipeline{
     }
     parameters{
         string(name: 'MOTHER',
-               defaulValue: 'MoM',
+               defaultValue: 'MoM',
                description: "Please Enter Your Mother's Name")
         text(name: 'PHRASE',
              defaultValue: 'Mom is the only beautiful thing in the world. She cares more than anyone in the world ',
