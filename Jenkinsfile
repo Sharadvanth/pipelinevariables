@@ -5,9 +5,7 @@ pipeline {
         stage('Append to File') {
             steps {
                 script {
-                    // Use heredoc to append multiple lines to the file
-                    sh '''
-                        cat <<EOF >> report.txt
+                    def fileContent = """
                         This is Report File 
                         environment{
                             MAX_SIZE = 10
@@ -58,8 +56,9 @@ pipeline {
                                 }
                             }
                         }
-EOF
-                    '''
+                    """
+                    
+                    writeFile file: 'report.txt', text: fileContent.trim()
                 }
             }
         }
