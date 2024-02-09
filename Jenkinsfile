@@ -9,7 +9,7 @@ pipeline {
                  defaultValue: '123ABC',
                  description: 'Passes a secret value into the pipeline')
         text(name:'CHANGELOG' ,
-             defaultValue: ' This is the change log'
+             defaultValue: ' This is the change log' ,
              description: ' Freeform  text can be added to a report ')
                  
     }
