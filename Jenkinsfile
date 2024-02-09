@@ -18,7 +18,7 @@ pipeline{
                 choices: ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2'],
                 description: ' Select one region to proceed further')
         password(name: 'PASSWORD',
-                 defaultvalue: ' Password123'
+                 defaultvalue: ' Password123',
                  description: ' Enter the password that contains atleast 1 spl chr, 1 number, 1 alpha')
     
     }
