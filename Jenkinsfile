@@ -18,7 +18,7 @@ pipeline {
                 expression { params.ENVIRONMENT != 'PRODUCTION' }
             }
             steps{
-                echo 'Deploying to ${params.ENVIRONMENT}'
+                echo " Deploying to ${params.ENVIRONMENT} "
             }
         }
         stage('Deploy to Production Environment'){
@@ -27,7 +27,7 @@ pipeline {
             }
             steps{
                 input message: ' Confirm Deployment to Production ........' , ok: 'Deploy'
-                echo 'Deploying to ${params.ENVIRONMENT} '
+                echo " Deploying to ${params.ENVIRONMENT} "
             }
         }
 
