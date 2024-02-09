@@ -50,6 +50,7 @@ pipeline{
                     echo " Select a AWS region u want to deploy to ${params.AWS_REGION}"
                     echo " Enter a Secure Password ${params.PASSWORD}"
                 }
+            }   
         
     
             stage('Report'){
