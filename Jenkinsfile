@@ -17,7 +17,7 @@ pipeline {
     stages { 
         stage('Test'){
             steps{
-                echo " Tests the Enviornment "
+                echo " Tests the ${params.ENVIRONMENT} environment "
             }
         }
         stage('Deploy') {
