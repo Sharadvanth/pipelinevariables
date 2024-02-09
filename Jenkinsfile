@@ -1,6 +1,13 @@
 pipeline{
     agent any
-    environment{
+    
+            stage('Append to file'){
+                steps{
+                   sh ''' 
+                    echo "This is Report File " 
+                    cat <<EOF>> > report.txt 
+
+                    environment{
         MAX_SIZE = 10
         MIN_SIZE = 1
     }
@@ -51,11 +58,10 @@ pipeline{
                     echo " Enter a Secure Password ${params.PASSWORD}"
                 }
             }   
-        
-    
-            stage('Report'){
-                steps{
-                   sh 'echo "This is Report File " > report.txt' 
+
+            EOF
+                    
+                    ''' 
                    archiveArtifacts allowEmptyArchive: true, 
                    artifacts: '**/report.txt', 
                    fingerprint: true, 
