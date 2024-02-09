@@ -8,15 +8,14 @@ pipeline {
     }
 
     stages { 
-        stage("Build"){
+        stage('Build'){
             steps{
                 echo ' Build the Enviornment'
             }
         }
-        stage('Deploy to Non-production Environments')
-        {
+        stage('Deploy to Non-production Environments') {
             when{
-                expression { $params.ENVIRONMENT != 'PRODUCTION' }
+                expression { params.ENVIRONMENT != 'PRODUCTION' }
             }
             steps{
                 echo 'Deploying to ${params.ENVIRONMENT}'
@@ -24,7 +23,7 @@ pipeline {
         }
         stage('Deploy to Production Environment'){
             when{
-                expression { $params.ENVIRONMENT == 'PRODUCTION' }
+                expression { params.ENVIRONMENT == 'PRODUCTION' }
             }
             steps{
                 input message: ' Confirm Deployment to Production ........' , ok: 'Deploy'
