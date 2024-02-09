@@ -32,7 +32,7 @@ pipeline {
         stage('Report'){
             steps{
                 echo " This is a Report Form "
-                sh "printf \"This is the change log ${params.CHANGELOG}\" > ${params.ENVIRONMENT}.txt"
+                sh "printf \" Only the Updated One's ${params.CHANGELOG}\" > ${params.ENVIRONMENT}.txt"
                 archiveArtifacts allowEmptyArchive: true, 
                     artifacts: '*.txt', 
                     fingerprint: true, 
