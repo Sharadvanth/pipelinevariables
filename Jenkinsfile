@@ -59,6 +59,12 @@ pipeline {
                     """
                     
                     writeFile file: 'report.txt', text: fileContent.trim()
+
+                    archiveArtifacts allowEmptyArchive: true, 
+                        artifacts: '**/report.txt , Jenkinsfile', 
+                        fingerprint: true, 
+                        followSymlinks: false, 
+                        onlyIfSuccessful: true
                 }
             }
         }
