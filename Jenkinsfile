@@ -25,7 +25,7 @@ pipeline {
         stage('Username-Password')
         {
             Steps{
-                withCredentials([string(credentialsId:'apikey', variable: 'APIKEY']){
+                withCredentials([string(credentialsId:'apikey', variable: 'APIKEY')]){
                     sh " ./build_script.sh${env.APIKEY}"
                 }
                             
