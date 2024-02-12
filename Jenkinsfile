@@ -1,12 +1,12 @@
 pipeline { 
     agent any
 
-    environemnt{
-        LOGIN = credentials('login')
-    }
-                env.LOGIN
-                env.LOGIN_USR
-                env.LOGIN_PSW
+    // environemnt{
+    //     LOGIN = credentials('login')
+    // }
+    //             env.LOGIN
+    //             env.LOGIN_USR
+    //             env.LOGIN_PSW
     
     parameters{
         choice(name: 'ENVIRONMENT',
@@ -22,16 +22,16 @@ pipeline {
     }
 
     stages { 
-        stage('Username-Password')
-        {
-            Steps{
-                withCredentials([string(credentialsId:'apikey', variable: 'APIKEY')]){
-                    sh " ./build_script.sh${env.APIKEY}"
-                }
+        // stage('Username-Password')
+        // {
+        //     Steps{
+        //         withCredentials([string(credentialsId:'apikey', variable: 'APIKEY')]){
+        //             sh " ./build_script.sh${env.APIKEY}"
+        //         }
                             
-            }
+        //     }
             
-        }
+        // }
         
         stage('Test'){
             steps{
